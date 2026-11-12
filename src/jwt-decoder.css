@@ -1,0 +1,386 @@
+/* Aptdot JWT Decoder & Verifier 1.0.0. Every rule is scoped to .aptdot-jwt-app. */
+.aptdot-jwt-app {
+  --jwt-bg: #0d1117;
+  --jwt-panel: #161b22;
+  --jwt-raised: #21262d;
+  --jwt-border: #30363d;
+  --jwt-text: #c9d1d9;
+  --jwt-muted: #8b949e;
+  --jwt-link: #58a6ff;
+  --jwt-head: #ffa657;
+  --jwt-pay: #7ee787;
+  --jwt-sig: #79c0ff;
+  --jwt-ok: #3fb950;
+  --jwt-warn: #d29922;
+  --jwt-bad: #f85149;
+  background: var(--jwt-bg);
+  color: var(--jwt-text);
+  border: 1px solid var(--jwt-border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.aptdot-jwt-app *,
+.aptdot-jwt-app *::before,
+.aptdot-jwt-app *::after {
+  box-sizing: border-box;
+}
+.aptdot-jwt-app [hidden] {
+  display: none !important;
+}
+.aptdot-jwt-app .jwt-visually-hidden,
+.aptdot-jwt-app .jwt-offscreen {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  left: -9999px;
+}
+
+/* Tabs */
+.aptdot-jwt-app .jwt-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--jwt-border);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.aptdot-jwt-app .jwt-tab {
+  background: transparent;
+  color: var(--jwt-muted);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.aptdot-jwt-app .jwt-tab[aria-selected="true"] {
+  color: #ffffff;
+  border-bottom-color: var(--jwt-link);
+}
+
+/* Text */
+.aptdot-jwt-app .jwt-privacy {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  background: var(--jwt-panel);
+  border-left: 3px solid var(--jwt-ok);
+  border-radius: 4px;
+  color: var(--jwt-text);
+  font-size: 14px;
+}
+.aptdot-jwt-app .jwt-hint {
+  color: var(--jwt-muted);
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+.aptdot-jwt-app .jwt-label {
+  display: block;
+  font-weight: 600;
+  margin: 10px 0 6px;
+  color: #ffffff;
+}
+.aptdot-jwt-app .jwt-inline-label {
+  font-size: 13px;
+  color: var(--jwt-muted);
+}
+.aptdot-jwt-app .jwt-h3 {
+  font-size: 16px;
+  margin: 0 0 10px;
+  color: #ffffff;
+}
+.aptdot-jwt-app code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 13px;
+  color: var(--jwt-text);
+  background: transparent;
+  word-break: break-all;
+}
+
+/* Inputs */
+.aptdot-jwt-app .jwt-input,
+.aptdot-jwt-app .jwt-text,
+.aptdot-jwt-app .jwt-select {
+  width: 100%;
+  background: var(--jwt-panel);
+  color: var(--jwt-text);
+  border: 1px solid var(--jwt-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+}
+.aptdot-jwt-app .jwt-input {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 13px;
+  resize: vertical;
+  word-break: break-all;
+}
+.aptdot-jwt-app .jwt-select {
+  width: auto;
+  max-width: 100%;
+}
+.aptdot-jwt-app .jwt-short {
+  width: 220px;
+  max-width: 100%;
+}
+.aptdot-jwt-app .jwt-num-in {
+  width: 90px;
+}
+.aptdot-jwt-app .jwt-input:focus,
+.aptdot-jwt-app .jwt-text:focus,
+.aptdot-jwt-app .jwt-select:focus,
+.aptdot-jwt-app button:focus-visible,
+.aptdot-jwt-app input[type="radio"]:focus-visible,
+.aptdot-jwt-app input[type="checkbox"]:focus-visible,
+.aptdot-jwt-app .jwt-json:focus-visible {
+  outline: 2px solid var(--jwt-link);
+  outline-offset: 2px;
+}
+.aptdot-jwt-app .jwt-row,
+.aptdot-jwt-app .jwt-toolbar,
+.aptdot-jwt-app .jwt-modes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 8px 0;
+}
+.aptdot-jwt-app .jwt-row .jwt-text {
+  flex: 1 1 220px;
+  width: auto;
+}
+.aptdot-jwt-app .jwt-radio,
+.aptdot-jwt-app .jwt-check {
+  cursor: pointer;
+}
+
+/* Buttons */
+.aptdot-jwt-app .jwt-btn {
+  background: var(--jwt-raised);
+  color: var(--jwt-text);
+  border: 1px solid var(--jwt-border);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.aptdot-jwt-app .jwt-btn:hover {
+  background: var(--jwt-border);
+}
+.aptdot-jwt-app .jwt-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.aptdot-jwt-app .jwt-btn-primary {
+  background: #238636;
+  border-color: #2ea043;
+  color: #ffffff;
+}
+.aptdot-jwt-app .jwt-btn-primary:hover {
+  background: #2ea043;
+}
+.aptdot-jwt-app .jwt-btn-sm {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+/* Coloured token */
+.aptdot-jwt-app .jwt-colored {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 13px;
+  word-break: break-all;
+  margin: 8px 0 0;
+  max-height: 140px;
+  overflow: auto;
+}
+.aptdot-jwt-app .jwt-part-h { color: var(--jwt-head); }
+.aptdot-jwt-app .jwt-part-p { color: var(--jwt-pay); }
+.aptdot-jwt-app .jwt-part-s { color: var(--jwt-sig); }
+.aptdot-jwt-app .jwt-part-x { color: var(--jwt-muted); }
+.aptdot-jwt-app .jwt-dot { color: #ffffff; }
+.aptdot-jwt-app .jwt-notes {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  color: var(--jwt-muted);
+  font-size: 13px;
+}
+.aptdot-jwt-app .jwt-warning-text {
+  color: var(--jwt-warn);
+}
+
+/* Status */
+.aptdot-jwt-app .jwt-status {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  background: var(--jwt-panel);
+  border: 1px solid var(--jwt-border);
+}
+.aptdot-jwt-app .jwt-status-ok { border-color: var(--jwt-ok); color: var(--jwt-ok); }
+.aptdot-jwt-app .jwt-status-warn { border-color: var(--jwt-warn); color: var(--jwt-warn); }
+.aptdot-jwt-app .jwt-status-error { border-color: var(--jwt-bad); color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-status-empty { color: var(--jwt-muted); font-weight: 400; }
+
+/* Panels */
+.aptdot-jwt-app .jwt-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .aptdot-jwt-app .jwt-grid { grid-template-columns: 1fr 1fr; }
+}
+.aptdot-jwt-app .jwt-panel {
+  background: var(--jwt-panel);
+  border: 1px solid var(--jwt-border);
+  border-radius: 6px;
+  min-width: 0;
+  margin: 0 0 10px;
+}
+.aptdot-jwt-app .jwt-part-h.jwt-panel { border-top: 3px solid var(--jwt-head); }
+.aptdot-jwt-app .jwt-part-p.jwt-panel { border-top: 3px solid var(--jwt-pay); }
+.aptdot-jwt-app .jwt-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--jwt-raised);
+  border-bottom: 1px solid var(--jwt-border);
+}
+.aptdot-jwt-app .jwt-panel-title {
+  margin: 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+.aptdot-jwt-app .jwt-json {
+  margin: 0;
+  padding: 10px 12px;
+  min-height: 60px;
+  max-height: 420px;
+  overflow: auto;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--jwt-text);
+  background: transparent;
+  white-space: pre;
+}
+.aptdot-jwt-app .jwt-wrap {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.aptdot-jwt-app .jwt-key { color: #79c0ff; }
+.aptdot-jwt-app .jwt-str { color: #a5d6ff; }
+.aptdot-jwt-app .jwt-num { color: #ffa657; }
+.aptdot-jwt-app .jwt-lit { color: #ff7b72; }
+.aptdot-jwt-app .jwt-pun { color: var(--jwt-muted); }
+
+/* Sections */
+.aptdot-jwt-app .jwt-section {
+  margin: 16px 0 0;
+  padding: 14px;
+  background: var(--jwt-panel);
+  border: 1px solid var(--jwt-border);
+  border-radius: 6px;
+}
+.aptdot-jwt-app .jwt-verify {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--jwt-border);
+}
+.aptdot-jwt-app .jwt-verify:empty { display: none; }
+.aptdot-jwt-app .jwt-verify p { margin: 0 0 6px; }
+.aptdot-jwt-app .jwt-verify-ok { border-color: var(--jwt-ok); }
+.aptdot-jwt-app .jwt-verify-ok strong { color: var(--jwt-ok); }
+.aptdot-jwt-app .jwt-verify-error { border-color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-verify-error strong { color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-verify-muted strong { color: var(--jwt-muted); }
+
+/* Findings */
+.aptdot-jwt-app .jwt-findings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.aptdot-jwt-app .jwt-finding {
+  padding: 8px 10px;
+  margin: 0 0 6px;
+  border-left: 3px solid var(--jwt-border);
+  background: var(--jwt-bg);
+  border-radius: 4px;
+  font-size: 14px;
+}
+.aptdot-jwt-app .jwt-danger { border-left-color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-danger strong,
+.aptdot-jwt-app .jwt-error strong { color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-error { border-left-color: var(--jwt-bad); }
+.aptdot-jwt-app .jwt-warning { border-left-color: var(--jwt-warn); }
+.aptdot-jwt-app .jwt-warning strong { color: var(--jwt-warn); }
+.aptdot-jwt-app .jwt-info { border-left-color: var(--jwt-link); }
+.aptdot-jwt-app .jwt-info strong { color: var(--jwt-link); }
+.aptdot-jwt-app .jwt-ok { border-left-color: var(--jwt-ok); }
+.aptdot-jwt-app .jwt-ok strong { color: var(--jwt-ok); }
+
+/* Claims table */
+.aptdot-jwt-app .jwt-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 12px;
+}
+.aptdot-jwt-app .jwt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.aptdot-jwt-app .jwt-table caption {
+  text-align: left;
+  font-weight: 700;
+  color: #00e676;
+  padding: 0 0 6px;
+}
+.aptdot-jwt-app .jwt-table th,
+.aptdot-jwt-app .jwt-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--jwt-border);
+  color: var(--jwt-text);
+  background: transparent;
+}
+.aptdot-jwt-app .jwt-table tbody th code {
+  white-space: nowrap;
+  word-break: normal;
+}
+.aptdot-jwt-app .jwt-table thead th {
+  color: #ffffff;
+  background: var(--jwt-raised);
+}
+.aptdot-jwt-app .jwt-table strong { color: #ffffff; }
+.aptdot-jwt-app .jwt-detail {
+  color: var(--jwt-muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.aptdot-jwt-app .jwt-ref {
+  color: var(--jwt-muted);
+  font-size: 12px;
+}
+.aptdot-jwt-app .jwt-enc-out p { margin: 10px 0; }
+
+@media (max-width: 600px) {
+  .aptdot-jwt-app { padding: 12px; }
+  .aptdot-jwt-app .jwt-table th,
+  .aptdot-jwt-app .jwt-table td { padding: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aptdot-jwt-app * { transition: none !important; }
+}
