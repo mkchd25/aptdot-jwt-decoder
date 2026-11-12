@@ -1,0 +1,18 @@
+{
+  "name": "aptdot-jwt-decoder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-only JWT decoder and verifier with security checks. No dependencies at runtime.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/test-jwt-decoder.mjs",
+    "test:browser": "node tests/browser-test.cjs"
+  },
+  "devDependencies": {
+    "acorn": "8.19.0",
+    "jose": "6.2.13",
+    "jsdom": "29.1.1",
+    "jsonwebtoken": "9.0.3",
+    "playwright": "1.64.1"
+  }
+}
